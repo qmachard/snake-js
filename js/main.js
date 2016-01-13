@@ -1,25 +1,34 @@
 /**
  * Created by quentinmachard on 13/01/2016.
  */
+var conf = {
+	sizeCase: 20,
+	speed: 50
+};
+
 function Tray () {
 	var el = {};
 	var game = document.getElementById('game');
 	el.width = game.offsetWidth;
 	el.height = game.offsetHeight;
-	el.sizeCase = 10;
 
 	el.snackPosition = {x:0, y:0};
+
+	window.addEventListener('resize', function() {
+		el.width = game.offsetWidth;
+		el.height = game.offsetHeight;
+	}, false);
 
 	var snack = document.getElementById('snack');
 
 	el.updateSnack = function() {
 		el.snackPosition = {
-			x: Math.round(Math.random() * (el.width / el.sizeCase  - 1)),
-			y: Math.round(Math.random() * (el.height / el.sizeCase  - 1))
+			x: Math.round(Math.random() * (el.width / conf.sizeCase  - 1)),
+			y: Math.round(Math.random() * (el.height / conf.sizeCase  - 1))
 		};
 
-		snack.style.left = el.snackPosition.x * el.sizeCase + 'px';
-		snack.style.top = el.snackPosition.y * el.sizeCase + 'px';
+		snack.style.left = el.snackPosition.x * conf.sizeCase + 'px';
+		snack.style.top = el.snackPosition.y * conf.sizeCase + 'px';
 	};
 
 	el.init = function() {
@@ -42,8 +51,8 @@ function Snake () {
 		var element = document.createElement('span');
 		element.className = 'snake_element';
 
-		element.style.left = '-10px';
-		element.style.top = '-10px';
+		element.style.left = '-'+conf.sizeCase+'px';
+		element.style.top = '-'+conf.sizeCase+'px';
 		element.position = { x: -1, y: -1};
 
 		snake.appendChild(element);
@@ -71,8 +80,8 @@ function Snake () {
 		el.position.y += el.direction.y;
 
 		var element = el.elements.pop();
-		element.style.left = el.position.x * 10 + 'px';
-		element.style.top = el.position.y * 10 + 'px';
+		element.style.left = el.position.x * conf.sizeCase + 'px';
+		element.style.top = el.position.y * conf.sizeCase + 'px';
 		element.position = {x: el.position.x, y:el.position.y};
 		el.elements.unshift(element);
 	};
@@ -120,7 +129,7 @@ function Game() {
 			tray.init();
 			score.reset();
 
-			interval = setInterval(frame, 70);
+			interval = setInterval(frame, conf.speed);
 		}
 	};
 
@@ -134,7 +143,7 @@ function Game() {
 		snake.move();
 
 		// Détecter les bords du jeu
-		if(snake.position.x < 0 || snake.position.x > tray.width / tray.sizeCase - 1 || snake.position.y < 0 || snake.position.y > tray.height / tray.sizeCase - 1) {
+		if(snake.position.x < 0 || snake.position.x > tray.width / conf.sizeCase - 1 || snake.position.y < 0 || snake.position.y > tray.height / conf.sizeCase - 1) {
 			gameOver();
 		}
 
