@@ -1,0 +1,23 @@
+.game {
+	position: relative;
+	background: #dbc59e;
+	height: 400px;
+	width: 400px;
+	margin: 20px auto;
+	overflow: hidden;
+}
+
+.snack {
+	position: absolute;
+	height: 10px;
+	width: 10px;
+	background: #2a85a0;
+	border:1px solid #dbc59e;
+}
+.snake_element {
+	position: absolute;
+	height: 10px;
+	width: 10px;
+	background: #953b39;
+	border:1px solid #dbc59e;
+}
