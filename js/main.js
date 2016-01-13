@@ -163,10 +163,13 @@ function Game() {
 	};
 
 	document.addEventListener('keydown', function(e) {
-		if(e.keyCode >= 37 && e.keyCode <= 40) {
+		if(e.keyCode >= 32 && e.keyCode <= 40) {
 			e.preventDefault();
 
 			switch(e.keyCode) {
+				case 32:
+					start();
+					break;
 				case 37: // Gauche
 					snake.moveLeft();
 					break;
