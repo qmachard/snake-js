@@ -12,12 +12,11 @@ function Tray () {
 
 	var snack = document.getElementById('snack');
 
-	var getRandomPosition = function() {
-		return Math.round(Math.random() * (el.width / el.sizeCase  - 1));
-	};
-
 	el.updateSnack = function() {
-		el.snackPosition = {x: getRandomPosition(), y: getRandomPosition()};
+		el.snackPosition = {
+			x: Math.round(Math.random() * (el.width / el.sizeCase  - 1)),
+			y: Math.round(Math.random() * (el.height / el.sizeCase  - 1))
+		};
 
 		snack.style.left = el.snackPosition.x * el.sizeCase + 'px';
 		snack.style.top = el.snackPosition.y * el.sizeCase + 'px';
@@ -89,9 +88,26 @@ function Snake () {
 	return el;
 }
 
+function Score() {
+	var el = {};
+	var score = 0;
+	var element = document.getElementById('score');
+
+	el.increment = function() {
+		element.innerHTML = "" + ++score;
+	};
+
+	el.reset = function() {
+		element.innerHTML = "" + 0;
+	};
+
+	return el;
+}
+
 function Game() {
 	var snake = Snake();
 	var tray = Tray();
+	var score = Score();
 	var button = document.getElementById('btnStart');
 
 	var interval = null;
@@ -125,6 +141,7 @@ function Game() {
 		if(snake.position.x == tray.snackPosition.x && snake.position.y == tray.snackPosition.y) {
 			snake.addCase();
 			tray.updateSnack();
+			score.plus();
 		}
 
 		// Collision
