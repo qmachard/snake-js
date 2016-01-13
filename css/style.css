@@ -1,6 +1,7 @@
 .game {
 	position: relative;
 	background: #dbc59e;
+	background: url(../img/wov.png);
 	height: 400px;
 	width: 400px;
 	margin: 20px auto;
