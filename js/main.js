@@ -118,6 +118,7 @@ function Game() {
 		if(interval == null) {
 			snake.init();
 			tray.init();
+			score.reset();
 
 			interval = setInterval(frame, 70);
 		}
@@ -141,7 +142,7 @@ function Game() {
 		if(snake.position.x == tray.snackPosition.x && snake.position.y == tray.snackPosition.y) {
 			snake.addCase();
 			tray.updateSnack();
-			score.plus();
+			score.increment();
 		}
 
 		// Collision
