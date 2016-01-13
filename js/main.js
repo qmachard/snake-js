@@ -3,8 +3,9 @@
  */
 function Tray () {
 	var el = {};
-	el.width = 400;
-	el.height = 400;
+	var game = document.getElementById('game');
+	el.width = game.offsetWidth;
+	el.height = game.offsetHeight;
 	el.sizeCase = 10;
 
 	el.snackPosition = {x:0, y:0};
@@ -91,10 +92,13 @@ function Snake () {
 function Game() {
 	var snake = Snake();
 	var tray = Tray();
+	var button = document.getElementById('btnStart');
 
 	var interval = null;
 
 	var start = function() {
+		button.style.display = 'none';
+
 		if(interval == null) {
 			snake.init();
 			tray.init();
@@ -106,7 +110,7 @@ function Game() {
 	var gameOver = function() {
 		clearInterval(interval);
 		interval = null;
-		alert('Perdu !');
+		button.style.display = 'block';
 	};
 
 	var frame = function() {
@@ -132,22 +136,26 @@ function Game() {
 	};
 
 	document.addEventListener('keydown', function(e) {
-		switch(e.keyCode) {
-			case 38: // Haut
-				snake.moveUp();
-				break;
-			case 40: // Bas
-				snake.moveDown();
-				break;
-			case 37: // Gauche
-				snake.moveLeft();
-				break;
-			case 39: // Droite
-				snake.moveRight();
-				break;
+		if(e.keyCode >= 37 && e.keyCode <= 40) {
+			e.preventDefault();
+
+			switch(e.keyCode) {
+				case 37: // Gauche
+					snake.moveLeft();
+					break;
+				case 38: // Haut
+					snake.moveUp();
+					break;
+				case 39: // Droite
+					snake.moveRight();
+					break;
+				case 40: // Bas
+					snake.moveDown();
+					break;
+			}
 		}
 	}, false);
 
-	document.getElementById('game').addEventListener('click', start, false);
+	button.addEventListener('click', start, false);
 }
 Game();
