@@ -107,6 +107,7 @@ function Score() {
 	};
 
 	el.reset = function() {
+		score = 0;
 		element.innerHTML = "" + 0;
 	};
 
