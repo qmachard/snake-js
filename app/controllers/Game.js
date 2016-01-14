@@ -3,20 +3,24 @@
 import Snake from "../models/Snake.js";
 import Board from "../models/Board.js";
 import Food from "../models/Food.js";
+import Score from "../models/Score.js";
 
 class Game {
 	constructor() {
 		this.board = new Board(20, this);
 		this.snake = new Snake(this);
 		this.food = new Food(this);
+		this.score = new Score(this);
 		this.frames = null;
 
 		this.speed = 70;
 	}
 
 	init() {
-		this.start();
 		this.controls();
+
+		var self = this;
+		document.getElementById('btnStart').addEventListener('click', function() { self.start(); }, false);
 
 		this.food.changePosition();
 		this.food.view.render();
@@ -34,9 +38,12 @@ class Game {
 		// Manger l'aliment
 		if(this.snake.position.x == this.food.position.x && this.snake.position.y == this.food.position.y) {
 			this.snake.addElement();
+
 			this.food.changePosition();
 			this.food.view.render();
-			//score.increment();
+
+			this.score.increment();
+			this.score.view.render();
 		}
 
 		// Collisions
@@ -49,8 +56,14 @@ class Game {
 
 	start() {
 		this.snake.reset();
+
 		this.food.changePosition();
 		this.food.view.render();
+
+		this.score.reset();
+		this.score.view.render();
+
+		document.getElementById('splash').style.display = 'none';
 
 		var self = this;
 		if(this.frames == null) {
@@ -61,6 +74,11 @@ class Game {
 	gameOver() {
 		clearInterval(this.frames);
 		this.frames = null;
+
+		this.score.saveHighScore();
+		this.score.view.renderTable();
+
+		document.getElementById('splash').style.display = 'table';
 	}
 
 	controls() {
