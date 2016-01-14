@@ -152,6 +152,8 @@ function Game() {
 	var tray = Tray();
 	var score = Score();
 
+	var isPause = false;
+
 	var splash = document.getElementById('splash');
 
 	var interval = null;
@@ -165,9 +167,15 @@ function Game() {
 			snake.init();
 			tray.init();
 			score.reset();
-
-			interval = setInterval(frame, conf.speed);
 		}
+
+		interval = setInterval(frame, conf.speed);
+		isPause = false;
+	};
+
+	var pause = function() {
+		clearInterval(interval);
+		isPause = true;
 	};
 
 	var gameOver = function() {
@@ -208,7 +216,11 @@ function Game() {
 
 			switch(e.keyCode) {
 				case 32:
-					start();
+					if(interval == null || isPause == true) {
+						start();
+					} else {
+						pause();
+					}
 					break;
 				case 37: // Gauche
 					snake.moveLeft();
