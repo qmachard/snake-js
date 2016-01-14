@@ -3,6 +3,8 @@
  */
 "use strict";
 
+import BoardView from "../views/BoardView.js";
+
 class Board {
 	constructor(sizeCase, game) {
 		this.game = game;
@@ -10,11 +12,8 @@ class Board {
 		this.width = 400;
 		this.height = 400;
 		this.sizeCase = sizeCase;
-	}
 
-	resize(w, h) {
-		this.width = w;
-		this.height = h;
+		this.view = new BoardView(this);
 	}
 
 	getRandomPosition() {

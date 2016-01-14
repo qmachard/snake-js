@@ -1,6 +1,7 @@
 "use strict";
 
 import SnakeElement from './SnakeElement.js'
+import SnakeView from '../views/SnakeView.js'
 
 class Snake {
 	constructor(game) {
@@ -8,6 +9,8 @@ class Snake {
 		this.position = { x: 0, y: 0 };
 		this.direction = { x: 1, y: 0};
 		this.elements = [];
+
+		this.view = new SnakeView(this);
 
 		this.addElement();
 	}
@@ -30,14 +33,14 @@ class Snake {
 	 * Set mouvement left
 	 */
 	moveLeft() {
-		this.direction = {x: -1, y: 0}
+		this.direction = {x: -1, y: 0};
 	}
 
 	/**
 	 * Set mouvement right
 	 */
 	moveRight() {
-		this.direction = {x: 1, y: 0}
+		this.direction = {x: 1, y: 0};
 	}
 
 	/**
@@ -56,7 +59,7 @@ class Snake {
 	 * Add new element to the snake
 	 */
 	addElement() {
-		this.elements.push(new SnakeElement());
+		this.elements.push(new SnakeElement(this));
 	}
 }
 export default Snake;

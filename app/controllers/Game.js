@@ -19,10 +19,12 @@ class Game {
 		this.controls();
 
 		this.food.changePosition();
+		this.food.view.render();
 	}
 
 	frame() {
 		this.snake.move();
+		this.snake.view.render();
 
 		// Détecter les bords du jeu
 		if(this.snake.position.x < 0 || this.snake.position.x > this.board.width / this.board.sizeCase - 1 || this.snake.position.y < 0 || this.snake.position.y > this.board.height / this.board.sizeCase - 1) {
@@ -31,30 +33,32 @@ class Game {
 
 		// Manger l'aliment
 		if(this.snake.position.x == this.food.position.x && this.snake.position.y == this.food.position.y) {
+			console.log('EAT!');
 			this.snake.addElement();
 			this.food.changePosition();
+			this.food.view.render();
 			//score.increment();
 		}
 
 		// Collisions
 		for(var i=1, element; element = this.snake.elements[i]; i++) {
 			if (this.snake.position.x == element.position.x && this.snake.position.y == element.position.y) {
-				gameOver();
+				this.gameOver();
 			}
 		}
 	}
 
 	start() {
 		var self = this;
+
 		if(this.frames == null) {
-			console.log('Start!');
 			this.frames = setInterval(function() { self.frame() }, this.speed);
 		}
 	}
 
 	gameOver() {
-		console.log('Game Over !');
 		clearInterval(this.frames);
+		this.frames = null;
 	}
 
 	controls() {
