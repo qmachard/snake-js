@@ -17,8 +17,10 @@ class Game {
 	}
 
 	init() {
-		this.start();
 		this.controls();
+
+		var self = this;
+		document.getElementById('btnStart').addEventListener('click', function() { self.start(); }, false);
 
 		this.food.changePosition();
 		this.food.view.render();
@@ -54,9 +56,14 @@ class Game {
 
 	start() {
 		this.snake.reset();
+
 		this.food.changePosition();
 		this.food.view.render();
+
 		this.score.reset();
+		this.score.view.render();
+
+		document.getElementById('splash').style.display = 'none';
 
 		var self = this;
 		if(this.frames == null) {
@@ -67,6 +74,11 @@ class Game {
 	gameOver() {
 		clearInterval(this.frames);
 		this.frames = null;
+
+		this.score.saveHighScore();
+		this.score.view.renderTable();
+
+		document.getElementById('splash').style.display = 'table';
 	}
 
 	controls() {
