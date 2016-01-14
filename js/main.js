@@ -101,7 +101,7 @@ function Score() {
 	var el = {};
 	var score = 0;
 	var element = document.getElementById('score');
-	var table = document.getElementById('');
+	var table = document.getElementById('tableScore');
 
 	el.increment = function() {
 		element.innerHTML = "" + ++score;
@@ -110,6 +110,10 @@ function Score() {
 	el.reset = function() {
 		score = 0;
 		element.innerHTML = "" + 0;
+	};
+
+	el.getScore = function() {
+		return score;
 	};
 
 	el.saveHighScore = function() {
@@ -136,8 +140,9 @@ function Score() {
 	};
 
 	el.showTableScore = function() {
-
-	}
+		table.querySelector('.txt-score').innerHTML = el.getScore();
+		table.querySelector('.txt-highscore').innerHTML = el.getHighScore();
+	};
 
 	return el;
 }
@@ -150,6 +155,8 @@ function Game() {
 	var splash = document.getElementById('splash');
 
 	var interval = null;
+
+	score.showTableScore();
 
 	var start = function() {
 		document.getElementById('splash').style.display = 'none';
