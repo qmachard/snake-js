@@ -6,7 +6,7 @@ class BoardView {
 		this.element = document.getElementById('board');
 
 		var self = this;
-		document.addEventListener('resize', function() {
+		window.addEventListener('resize', function() {
 			self.resize();
 		}, false);
 		this.resize();
