@@ -11,7 +11,7 @@ class Game {
 		this.food = new Food(this);
 		this.frames = null;
 
-		this.speed = 100;
+		this.speed = 70;
 	}
 
 	init() {
@@ -33,7 +33,6 @@ class Game {
 
 		// Manger l'aliment
 		if(this.snake.position.x == this.food.position.x && this.snake.position.y == this.food.position.y) {
-			console.log('EAT!');
 			this.snake.addElement();
 			this.food.changePosition();
 			this.food.view.render();
@@ -49,8 +48,11 @@ class Game {
 	}
 
 	start() {
-		var self = this;
+		this.snake.reset();
+		this.food.changePosition();
+		this.food.view.render();
 
+		var self = this;
 		if(this.frames == null) {
 			this.frames = setInterval(function() { self.frame() }, this.speed);
 		}

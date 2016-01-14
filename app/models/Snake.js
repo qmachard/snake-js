@@ -6,13 +6,10 @@ import SnakeView from '../views/SnakeView.js'
 class Snake {
 	constructor(game) {
 		this.game = game;
-		this.position = { x: 0, y: 0 };
-		this.direction = { x: 1, y: 0};
-		this.elements = [];
 
 		this.view = new SnakeView(this);
 
-		this.addElement();
+		this.reset();
 	}
 
 	/**
@@ -60,6 +57,16 @@ class Snake {
 	 */
 	addElement() {
 		this.elements.push(new SnakeElement(this));
+	}
+
+	reset() {
+		this.position = { x: 0, y: 0 };
+		this.direction = { x: 1, y: 0};
+		this.elements = [];
+
+		this.view.reset();
+
+		this.addElement();
 	}
 }
 export default Snake;

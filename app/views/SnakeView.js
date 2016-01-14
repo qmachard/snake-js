@@ -12,5 +12,9 @@ class SnakeView {
 			element.view.render();
 		}
 	}
+
+	reset() {
+		this.domElement.innerHTML = "";
+	}
 }
 export default SnakeView;
