@@ -86,8 +86,10 @@ Icon
 
 # Directories potentially created on remote AFP share
 .AppleDB
+node_modules
 .AppleDesktop
 Network Trash Folder
 Temporary Items
 .apdisk
 
+.old
