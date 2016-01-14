@@ -1,5 +1,7 @@
 /**
  * Created by quentinmachard on 14/01/2016.
  */
-console.log('Hello World');
-console.log('toto');
+import Snake from './controllers/Snake.js';
+
+var snake = new Snake();
+console.log(snake);
