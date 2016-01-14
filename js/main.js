@@ -101,6 +101,7 @@ function Score() {
 	var el = {};
 	var score = 0;
 	var element = document.getElementById('score');
+	var table = document.getElementById('');
 
 	el.increment = function() {
 		element.innerHTML = "" + ++score;
@@ -111,6 +112,33 @@ function Score() {
 		element.innerHTML = "" + 0;
 	};
 
+	el.saveHighScore = function() {
+		if(typeof(Storage) != undefined) {
+			var currentHighscore = localStorage.getItem("highscore");
+
+			if(currentHighscore == null || score > currentHighscore) {
+				localStorage.setItem("highscore", score);
+			}
+		}
+	};
+
+	el.getHighScore = function() {
+		if(typeof(Storage) != undefined) {
+			var currentHighscore = localStorage.getItem("highscore");
+
+			if(currentHighscore != null) {
+				return currentHighscore;
+			} else {
+				return 0;
+			}
+		}
+		return null;
+	};
+
+	el.showTableScore = function() {
+
+	}
+
 	return el;
 }
 
@@ -118,6 +146,8 @@ function Game() {
 	var snake = Snake();
 	var tray = Tray();
 	var score = Score();
+
+	var splash = document.getElementById('splash');
 
 	var interval = null;
 
@@ -136,7 +166,10 @@ function Game() {
 	var gameOver = function() {
 		clearInterval(interval);
 		interval = null;
-		document.getElementById('splash').style.display = 'table';
+		splash.style.display = 'table';
+
+		score.saveHighScore();
+		score.showTableScore();
 	};
 
 	var frame = function() {
