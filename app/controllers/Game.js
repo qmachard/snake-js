@@ -3,12 +3,14 @@
 import Snake from "../models/Snake.js";
 import Board from "../models/Board.js";
 import Food from "../models/Food.js";
+import Score from "../models/Score.js";
 
 class Game {
 	constructor() {
 		this.board = new Board(20, this);
 		this.snake = new Snake(this);
 		this.food = new Food(this);
+		this.score = new Score(this);
 		this.frames = null;
 
 		this.speed = 70;
@@ -34,9 +36,12 @@ class Game {
 		// Manger l'aliment
 		if(this.snake.position.x == this.food.position.x && this.snake.position.y == this.food.position.y) {
 			this.snake.addElement();
+
 			this.food.changePosition();
 			this.food.view.render();
-			//score.increment();
+
+			this.score.increment();
+			this.score.view.render();
 		}
 
 		// Collisions
@@ -51,6 +56,7 @@ class Game {
 		this.snake.reset();
 		this.food.changePosition();
 		this.food.view.render();
+		this.score.reset();
 
 		var self = this;
 		if(this.frames == null) {

@@ -1,10 +1,14 @@
 "use strict";
 
+import ScoreView from '../views/ScoreView.js'
+
 class Score {
 	constructor(game) {
 		this.game = game;
 
 		this.score = 0;
+
+		this.view = new ScoreView(this);
 	}
 
 	increment() {
@@ -40,3 +44,5 @@ class Score {
 
 
 }
+
+export default Score;
