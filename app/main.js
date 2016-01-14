@@ -1,7 +1,7 @@
 /**
  * Created by quentinmachard on 14/01/2016.
  */
-import Snake from './controllers/Snake.js';
+import Game from './controllers/Game.js'
 
-var snake = new Snake();
-console.log(snake);
+var game = new Game();
+game.init();
