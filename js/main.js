@@ -118,12 +118,11 @@ function Game() {
 	var snake = Snake();
 	var tray = Tray();
 	var score = Score();
-	var button = document.getElementById('btnStart');
 
 	var interval = null;
 
 	var start = function() {
-		button.style.display = 'none';
+		document.getElementById('splash').style.display = 'none';
 
 		if(interval == null) {
 			snake.init();
@@ -137,7 +136,7 @@ function Game() {
 	var gameOver = function() {
 		clearInterval(interval);
 		interval = null;
-		button.style.display = 'block';
+		document.getElementById('splash').style.display = 'table';
 	};
 
 	var frame = function() {
@@ -187,6 +186,6 @@ function Game() {
 		}
 	}, false);
 
-	button.addEventListener('click', start, false);
+	document.getElementById('btnStart').addEventListener('click', start, false);
 }
 Game();
